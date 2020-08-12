@@ -1,6 +1,7 @@
 package com.villavanilla.conekta.capacitor;
 
 import android.app.Activity;
+import android.util.Log;
 
 import com.getcapacitor.JSObject;
 import com.getcapacitor.NativePlugin;
@@ -68,27 +69,27 @@ public class ConektaPlugin extends Plugin {
 
     @PluginMethod
     public  void createToken(PluginCall call){
-        JSObject remote_card = call.getObject("card",new JSObject());
+        JSObject remote_card = call.getData();
 
         // Checking minimum values
         if(!remote_card.has("number")){
-            call.reject("Missing car:number param.");
+            call.reject("Missing card:number param.");
         }
 
         if(!remote_card.has("name")){
-            call.reject("Missing car:name param.");
+            call.reject("Missing card:name param.");
         }
 
         if(!remote_card.has("cvc")){
-            call.reject("Missing car:cvc param.");
+            call.reject("Missing card:cvc param.");
         }
 
         if(!remote_card.has("exp_month")){
-            call.reject("Missing car:exp_month param.");
+            call.reject("Missing card:exp_month param.");
         }
 
         if(!remote_card.has("exp_year")){
-            call.reject("Missing car:exp_month param.");
+            call.reject("Missing card:exp_month param.");
         }
         String c_name, c_number, c_cvc, c_expMonth, c_expYear;
 

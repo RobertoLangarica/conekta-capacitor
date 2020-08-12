@@ -1,6 +1,6 @@
 {
   "name": "conekta-capacitor",
-  "version": "0.0.3",
+  "version": "0.0.7",
   "description": "A Conekta plugin compatible with Capacitor 2.0",
   "main": "dist/plugin.js",
   "module": "dist/esm/index.js",

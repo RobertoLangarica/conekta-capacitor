@@ -55,7 +55,7 @@ export class ConektaPluginWeb extends WebPlugin implements ConektaPluginPlugin {
 
   async createToken(card: { number: string, name: string, cvc: string, exp_month: string, exp_year: string }): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.Conekta.Token.create(JSON.stringify(card), resolve, reject)
+      this.Conekta.Token.create({ card }, resolve, reject)
     })
   }
 

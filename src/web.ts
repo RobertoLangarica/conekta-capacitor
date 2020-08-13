@@ -33,9 +33,9 @@ export class ConektaPluginWeb extends WebPlugin implements ConektaPluginPlugin {
     })
   }
 
-  async setPublicKey(key: string) {
+  async setPublicKey(params: { key: string }) {
     await this.getSDK()
-    this.Conekta.setPublicKey(key)
+    this.Conekta.setPublicKey(params.key)
   }
 
   async getPublicKey(): Promise<{ key: string }> {
@@ -43,9 +43,9 @@ export class ConektaPluginWeb extends WebPlugin implements ConektaPluginPlugin {
     return { key: this.Conekta.getPublicKey() }
   }
 
-  async setLanguage(language: string): Promise<void> {
+  async setLanguage(params: { language: string }): Promise<void> {
     await this.getSDK()
-    this.Conekta.setLanguage(language);
+    this.Conekta.setLanguage(params.language);
   }
 
   async getLanguage(): Promise<{ language: string }> {
@@ -59,7 +59,7 @@ export class ConektaPluginWeb extends WebPlugin implements ConektaPluginPlugin {
     })
   }
 
-  setApiVersion(_api_version: string): Promise<void> {
+  setApiVersion(_params: { api_version: string }): Promise<void> {
     console.warn('setApiVersion is not available in Javascript SDK');
     return Promise.resolve()
   }

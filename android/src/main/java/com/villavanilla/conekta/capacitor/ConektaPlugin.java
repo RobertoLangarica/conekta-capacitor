@@ -20,12 +20,16 @@ import java.util.Iterator;
 
 @NativePlugin
 public class ConektaPlugin extends Plugin {
+    private  String TAG = "CONEKTA_PLUGIN";
 
     @PluginMethod
     public  void setPublicKey(PluginCall call){
+        Log.d(TAG,call.getData().toString());
         String key = call.getString("key","");
+        Log.d(TAG, key);
         try{
             Conekta.setPublicKey(key);
+            Log.d(TAG, "KEY_SUCCESSFULL");
             call.success();
         }catch(Exception err){
             call.reject(err.toString());
@@ -36,8 +40,10 @@ public class ConektaPlugin extends Plugin {
     public  void getPublicKey(PluginCall call){
         try{
             String key = Conekta.getPublicKey();
+            Log.d(TAG, key);
             JSObject res = new JSObject();
             res.put("key",key);
+            Log.d(TAG, res.toString());
             call.success(res);
         }catch(Exception err){
             call.reject(err.toString());
@@ -46,6 +52,7 @@ public class ConektaPlugin extends Plugin {
 
     @PluginMethod
     public  void setLanguage(PluginCall call){
+        Log.d(TAG,call.getData().toString());
         String language = call.getString("language","en");
         try{
             Conekta.setLanguage(language);
@@ -60,6 +67,7 @@ public class ConektaPlugin extends Plugin {
         try{
             String language = Conekta.getLanguage();
             JSObject res = new JSObject();
+            Log.d(TAG,res.toString());
             res.put("language",language);
             call.success(res);
         }catch(Exception err){
@@ -69,28 +77,39 @@ public class ConektaPlugin extends Plugin {
 
     @PluginMethod
     public  void createToken(PluginCall call){
+        Log.d(TAG,call.getData().toString());
         JSObject remote_card = call.getData();
 
+        if(Conekta.getPublicKey().isEmpty()){
+            call.reject("Missing public key.");
+            return;
+        }
         // Checking minimum values
         if(!remote_card.has("number")){
             call.reject("Missing card:number param.");
+            return;
         }
 
         if(!remote_card.has("name")){
             call.reject("Missing card:name param.");
+            return;
         }
 
         if(!remote_card.has("cvc")){
             call.reject("Missing card:cvc param.");
+            return;
         }
 
         if(!remote_card.has("exp_month")){
             call.reject("Missing card:exp_month param.");
+            return;
         }
 
         if(!remote_card.has("exp_year")){
             call.reject("Missing card:exp_month param.");
+            return;
         }
+
         String c_name, c_number, c_cvc, c_expMonth, c_expYear;
 
         c_name = remote_card.getString("name");
@@ -114,13 +133,14 @@ public class ConektaPlugin extends Plugin {
                         @Override
                         public void onCreateTokenReady(JSONObject data){
                            PluginCall savedCall = getSavedCall();
+
                            JSObject res = new JSObject();
                            Iterator<String> it = data.keys();
                            String key;
                            try{
                                while(it.hasNext()){
                                    key = it.next();
-                                   res.put(key, data.get(it.toString()));
+                                   res.put(key, data.get(key));
                                }
                            }catch (JSONException e){
                                savedCall.reject(e.getMessage(),e);

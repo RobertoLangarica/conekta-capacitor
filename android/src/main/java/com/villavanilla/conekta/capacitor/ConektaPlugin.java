@@ -1,7 +1,6 @@
 package com.villavanilla.conekta.capacitor;
 
 import android.app.Activity;
-import android.util.Log;
 
 import com.getcapacitor.JSObject;
 import com.getcapacitor.NativePlugin;
@@ -20,16 +19,12 @@ import java.util.Iterator;
 
 @NativePlugin
 public class ConektaPlugin extends Plugin {
-    private  String TAG = "CONEKTA_PLUGIN";
 
     @PluginMethod
     public  void setPublicKey(PluginCall call){
-        Log.d(TAG,call.getData().toString());
         String key = call.getString("key","");
-        Log.d(TAG, key);
         try{
             Conekta.setPublicKey(key);
-            Log.d(TAG, "KEY_SUCCESSFULL");
             call.success();
         }catch(Exception err){
             call.reject(err.toString());
@@ -40,10 +35,8 @@ public class ConektaPlugin extends Plugin {
     public  void getPublicKey(PluginCall call){
         try{
             String key = Conekta.getPublicKey();
-            Log.d(TAG, key);
             JSObject res = new JSObject();
             res.put("key",key);
-            Log.d(TAG, res.toString());
             call.success(res);
         }catch(Exception err){
             call.reject(err.toString());
@@ -52,7 +45,6 @@ public class ConektaPlugin extends Plugin {
 
     @PluginMethod
     public  void setLanguage(PluginCall call){
-        Log.d(TAG,call.getData().toString());
         String language = call.getString("language","en");
         try{
             Conekta.setLanguage(language);
@@ -67,7 +59,6 @@ public class ConektaPlugin extends Plugin {
         try{
             String language = Conekta.getLanguage();
             JSObject res = new JSObject();
-            Log.d(TAG,res.toString());
             res.put("language",language);
             call.success(res);
         }catch(Exception err){
@@ -77,7 +68,6 @@ public class ConektaPlugin extends Plugin {
 
     @PluginMethod
     public  void createToken(PluginCall call){
-        Log.d(TAG,call.getData().toString());
         JSObject remote_card = call.getData();
 
         if(Conekta.getPublicKey().isEmpty()){

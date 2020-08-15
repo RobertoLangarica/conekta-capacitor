@@ -40,15 +40,13 @@ public class ConektaPlugin: CAPPlugin {
         let c_expMonth = call.getString("exp_month") ?? ""
         let c_expYear = call.getString("exp_year") ?? ""
         
-//        DispatchQueue.main.sync {
-//            self.conekta.collectDevice()
-//        }
+        conekta.delegate = self.bridge.viewController
         
-//        conekta.delegate = self
-        conekta.collectDevice()
+        DispatchQueue.main.sync {
+            self.conekta.collectDevice()
+        }
         
         let card = conekta.card()
-        
         card?.setNumber(c_number, name: c_name, cvc: c_cvc , expMonth: c_expMonth, expYear: c_expYear)
         
         
@@ -61,7 +59,6 @@ public class ConektaPlugin: CAPPlugin {
                 call.success(data)
             }
         }, andError: { (error) -> Void in
-            //print(error)
             call.reject(error.debugDescription, "", error)
         })
     }
@@ -77,7 +74,7 @@ public class ConektaPlugin: CAPPlugin {
     
     @objc func getBaseUri(_ call: CAPPluginCall){
         call.success([
-            "fingerprint": conekta.baseURI ?? ""
+            "uri": conekta.baseURI ?? ""
         ])
     }
 }

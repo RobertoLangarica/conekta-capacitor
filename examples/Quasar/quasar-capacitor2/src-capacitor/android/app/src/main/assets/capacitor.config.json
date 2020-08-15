@@ -1,0 +1,7 @@
+{
+  "appId": "com.villavanilla.capacitor_test",
+  "appName": "Quasar App",
+  "bundledWebRuntime": false,
+  "npmClient": "yarn",
+  "webDir": "www"
+}

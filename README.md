@@ -8,7 +8,7 @@ The plugin supports **JS**, **Android** and **iOS** exposing the Conekta SDK fun
 ```
 npm install -s conekta-capacitor
 ```
-If you are working on a framework like Quasar, the package should be installed in the Quasar project and installed again in the capacitor project (inside src-capacitor), so you could use the JS implementation within Quasar and the native version within Capacitor's project. Here is a [Quasar example](link to quasar)
+If you are working on a framework like Quasar, the package should be installed in the Quasar project and installed again in the capacitor project (inside src-capacitor), so you could use the JS implementation within Quasar and the native version within Capacitor's project. Here is a [Quasar example](https://github.com/RobertoLangarica/conekta-capacitor/tree/master/examples/Quasar/quasar-capacitor2)
 
 *Note:* Remember that after installation an `npx cap sync` call could be needed.
 

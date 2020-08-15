@@ -156,7 +156,7 @@ export default {
         }
         this.c_lang = result.language
       } catch (e) {
-        this.notify(false,e)
+        this.notify(false,e.message || 'Error!')
         console.log(e)
       }
     },
@@ -179,7 +179,7 @@ export default {
         }
         this.c_api = result.api_version
       } catch (e) {
-        this.notify(false,e)
+        this.notify(false,e.message || 'Error!')
         console.log(e)
       }
     },
@@ -225,8 +225,12 @@ export default {
         }
         */
         console.log(result)
-        this.notify(true,`Token created successfully`)
-        this.c_token = result.id
+        if(result.object === "error"){
+          this.notify(false,`Error creating the token: ${result.message}`)
+        } else {
+          this.notify(true,`Token created successfully`)
+          this.c_token = result.id
+        }
       } catch (e) {
         /* Error schema
         {
@@ -237,7 +241,7 @@ export default {
           type:String,
           validation_error:String
         } */
-        this.notify(false,`Error creating the token: ${e.message}`)
+        this.notify(false,`Error creating the token: ${e.message || 'Error!'}`)
         console.log(e)
       }
     }

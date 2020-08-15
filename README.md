@@ -12,6 +12,34 @@ If you are working on a framework like Quasar, the package should be installed i
 
 *Note:* Remember that after installation an `npx cap sync` call could be needed.
 
+### Extra steps for Android
+As per the [Capacitor docs](https://capacitorjs.com/docs/plugins/android#export-to-capacitor) the plugin should be added to the app MainActivity.
+
+The next line should be added to your app `MainActivity`
+```javascript
+add(com.villavanilla.conekta.capacitor.ConektaPlugin.class);
+```
+
+The full code should look something like this:
+```
+// Other imports...
+
+public class MainActivity extends BridgeActivity {
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+
+    // Initializes the Bridge
+    this.init(savedInstanceState, new ArrayList<Class<? extends Plugin>>() {{
+      // Additional plugins you've installed go here
+      // Ex: add(TotallyAwesomePlugin.class);
+      add(com.villavanilla.conekta.capacitor.ConektaPlugin.class);
+    }});
+  }
+}
+```
+
+
 ## Usage
 
 ```javascript
